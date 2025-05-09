@@ -9,6 +9,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import com.jsp.todo_rest_api.exception.InvalidException;
 import com.jsp.todo_rest_api.exception.UserExistsException;
 
 @RestControllerAdvice
@@ -26,6 +27,13 @@ public class GlobalExceptionHandler {
 		Map<String, String> map = new LinkedHashMap<String, String>();
 		map.put("message", exception.getMessage());
 		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(map);
+	}
+	
+	@ExceptionHandler(InvalidException.class)
+	public ResponseEntity<Map<String, String>> handle(InvalidException exception) {
+		Map<String, String> map = new LinkedHashMap<String, String>();
+		map.put("message", exception.getMessage());
+		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(map);
 	}
 
 }
