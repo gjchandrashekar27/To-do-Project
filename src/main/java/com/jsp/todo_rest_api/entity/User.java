@@ -4,6 +4,9 @@ import java.time.LocalDateTime;
 
 import org.hibernate.annotations.CreationTimestamp;
 
+import com.jsp.todo_rest_api.dto.UserRequest;
+import com.jsp.todo_rest_api.helper.AES;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -26,7 +29,7 @@ public class User {
 	@Column(unique = true, nullable = false)
 	private String username;
 	
-	@Column(unique = true, nullable = false)
+	@Column( nullable = false)
 	private String password;
 	
 	@Column(unique = true, nullable = false)
@@ -34,6 +37,12 @@ public class User {
 	
 	@CreationTimestamp
 	private LocalDateTime createdTime;
+	
+	public User(UserRequest request) {
+		this.email = request.getEmail();
+		this.password = AES.encrypt(request.getPassword());
+		this.username = request.getUsername();
+	}
 	
 	
 	

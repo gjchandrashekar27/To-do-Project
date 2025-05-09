@@ -1,6 +1,7 @@
 package com.jsp.todo_rest_api.dto;
 
 import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
@@ -18,6 +19,7 @@ public class UserRequest {
 	private String password;
 	
 	@Email(message = "Email should be Proper")
+	@NotNull(message = "Email is Required")
 	private String email;
 
 }
