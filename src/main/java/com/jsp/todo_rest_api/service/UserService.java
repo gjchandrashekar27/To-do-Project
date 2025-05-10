@@ -14,4 +14,6 @@ public interface UserService {
 
 	Map<String, String> login(UserRequest request, HttpSession session);
 
+	Map<String, String> logout(String sessionId, HttpSession session);
+
 }

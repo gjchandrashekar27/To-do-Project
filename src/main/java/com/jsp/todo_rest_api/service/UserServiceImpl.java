@@ -1,5 +1,6 @@
 package com.jsp.todo_rest_api.service;
 
+import java.time.LocalDateTime;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Optional;
@@ -12,6 +13,7 @@ import com.jsp.todo_rest_api.dto.UserRequest;
 import com.jsp.todo_rest_api.entity.Session;
 import com.jsp.todo_rest_api.entity.User;
 import com.jsp.todo_rest_api.exception.InvalidException;
+import com.jsp.todo_rest_api.exception.InvalidSessionException;
 import com.jsp.todo_rest_api.exception.UserExistsException;
 import com.jsp.todo_rest_api.helper.AES;
 import com.jsp.todo_rest_api.helper.SessionStatus;
@@ -69,6 +71,26 @@ public class UserServiceImpl  implements UserService{
 			
 		}else
 			throw new InvalidException("Invalid Username");
+	}
+
+	@Override
+	public Map<String, String> logout(String sessionId, HttpSession session) {
+		if(sessionId != null) {
+			Session userSession = sessionRepository.findBySessionId(sessionId);
+			if(userSession != null) {
+				session.invalidate();
+				userSession.setStatus(SessionStatus.INVALIDATED);
+				userSession.setLoggedOutTime(LocalDateTime.now());
+				sessionRepository.save(userSession);
+				Map<String, String> map = new LinkedHashMap<String,String>();
+				map.put("message", "Logout Success");
+				return map;
+			}else {
+				throw new InvalidSessionException();
+			}
+		}else {
+			throw new InvalidSessionException();
+		}
 	}
 
 	
