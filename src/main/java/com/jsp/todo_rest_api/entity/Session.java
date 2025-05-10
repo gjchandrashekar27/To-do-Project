@@ -29,7 +29,7 @@ public class Session {
 	
 	private String sessionId;
 	
-	private Long user_id;
+	private Long userId;
 	
 	@CreationTimestamp
 	private LocalDateTime loggedInTime;

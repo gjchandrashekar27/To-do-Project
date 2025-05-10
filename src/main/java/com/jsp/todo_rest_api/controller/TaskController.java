@@ -5,6 +5,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
@@ -27,8 +28,12 @@ public class TaskController {
 	
 	@PostMapping
 	public ResponseEntity<Map<String, Object>> addTask(@RequestBody @Valid TaskRequest request, @RequestHeader(required = false) String sessionId){
-		return ResponseEntity.status(HttpStatus.CREATED).body(taskService.addTask(request,sessionId));
-		
+		return ResponseEntity.status(HttpStatus.CREATED).body(taskService.addTask(request,sessionId));	
+	}
+	
+	@GetMapping
+	public ResponseEntity<Map<String, Object>> fetchAllTasks(@RequestHeader(required = false) String sessionId){
+		return ResponseEntity.status(HttpStatus.OK).body(taskService.fetchAllTasks(sessionId));
 	}
 
 }
