@@ -30,27 +30,32 @@ public class TaskController {
 	@Autowired
 	TaskService taskService;
 	
+	//Adding the Task.
 	@PostMapping
 	public ResponseEntity<Map<String, Object>> addTask(@RequestBody @Valid TaskRequest request, @RequestHeader(required = false) String sessionId){
 		return ResponseEntity.status(HttpStatus.CREATED).body(taskService.addTask(request,sessionId));	
 	}
 	
+	//Fetch All the Tasks based on User Session Id.
 	@GetMapping
 	public ResponseEntity<Map<String, Object>> fetchAllTasks(@RequestHeader(required = false) String sessionId){
 		return ResponseEntity.status(HttpStatus.OK).body(taskService.fetchAllTasks(sessionId));
 	}
 	
+	//Fetch the Task By ID.
 	@GetMapping("/{id}")
 	public ResponseEntity<Map<String, Object>>  fetchTaskById(@RequestHeader(required = false) String sessionId, @PathVariable Long id){
 		return ResponseEntity.status(HttpStatus.OK).body(taskService.fetchTaskById(sessionId,id));
 	}
 	
+	//Delete Task By Id.
 	@DeleteMapping("/{id}")
 	public ResponseEntity<Map<String, Object>> deleteTaskById(@RequestHeader(required = false) String sessionId,
 			@PathVariable Long id) {
 		return ResponseEntity.status(HttpStatus.OK).body(taskService.deleteTaskById(sessionId, id));
 	}
 	
+	//Update The Task By Id.
 	@PutMapping
 	public ResponseEntity<Map<String, Object>> addTask(@RequestBody Task task,
 			@RequestHeader(required = false) String sessionId) {

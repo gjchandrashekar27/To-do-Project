@@ -3,10 +3,8 @@ package com.jsp.todo_rest_api.entity;
 import java.time.LocalDateTime;
 
 import org.hibernate.annotations.CreationTimestamp;
-
 import com.jsp.todo_rest_api.dto.UserRequest;
 import com.jsp.todo_rest_api.helper.AES;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

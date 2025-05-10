@@ -4,11 +4,8 @@ import java.time.LocalDateTime;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.RequestEntity;
 import org.springframework.stereotype.Service;
-
 import com.jsp.todo_rest_api.dto.UserRequest;
 import com.jsp.todo_rest_api.entity.Session;
 import com.jsp.todo_rest_api.entity.User;
@@ -19,9 +16,8 @@ import com.jsp.todo_rest_api.helper.AES;
 import com.jsp.todo_rest_api.helper.SessionStatus;
 import com.jsp.todo_rest_api.repository.SessionRepository;
 import com.jsp.todo_rest_api.repository.UserRepository;
-
 import jakarta.servlet.http.HttpSession;
-import jakarta.validation.Valid;
+
 
 @Service
 public class UserServiceImpl  implements UserService{

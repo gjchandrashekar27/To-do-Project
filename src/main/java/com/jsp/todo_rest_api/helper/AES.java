@@ -3,10 +3,11 @@ package com.jsp.todo_rest_api.helper;
 import java.security.MessageDigest;
 import java.util.Arrays;
 import java.util.Base64;
-
 import javax.crypto.Cipher;
 import javax.crypto.spec.SecretKeySpec;
 
+
+//This File id for Password Can be stored Encrypt and Decrypt in the Database for Secrity Purpose.
 public class AES {
 	
 	private static SecretKeySpec secretKey;

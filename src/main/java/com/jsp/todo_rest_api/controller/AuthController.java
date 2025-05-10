@@ -24,17 +24,19 @@ public class AuthController {
 	@Autowired
 	UserService userService;
 	
+	//Registration
 	@PostMapping("/register")
 	public ResponseEntity<Map<String, String>> registerUser(@RequestBody @Valid UserRequest request){
 		return ResponseEntity.status(HttpStatus.CREATED).body(userService.registerUser(request));
 	}
 	
+	//Login
 	@PostMapping("/login")
 	public ResponseEntity<Map<String, String>> login (@RequestBody UserRequest request, HttpSession session){
-		return ResponseEntity.status(HttpStatus.OK).body(userService.login(request,session));
-		
+		return ResponseEntity.status(HttpStatus.OK).body(userService.login(request,session));		
 	}
 	
+	//Logout
 	@PostMapping("/logout")
 	public ResponseEntity<Map<String, String>> logout(@RequestHeader(required = false) String sessionId, HttpSession session){
 		return ResponseEntity.status(HttpStatus.OK).body(userService.logout(sessionId,session));

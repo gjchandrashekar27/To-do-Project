@@ -18,12 +18,14 @@ import com.jsp.todo_rest_api.exception.UserExistsException;
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 	
+	
 	@ExceptionHandler(MethodArgumentNotValidException.class)
 	public ResponseEntity<Map<String, String>> handle(MethodArgumentNotValidException exception) {
 		Map<String, String> map = new LinkedHashMap<String, String>();
 		map.put("message", exception.getFieldError().getDefaultMessage());
 		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(map);
 	}
+	
 	
 	@ExceptionHandler(UserExistsException.class)
 	public ResponseEntity<Map<String, String>> handle(UserExistsException exception) {
@@ -32,12 +34,14 @@ public class GlobalExceptionHandler {
 		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(map);
 	}
 	
+	
 	@ExceptionHandler(InvalidException.class)
 	public ResponseEntity<Map<String, String>> handle(InvalidException exception) {
 		Map<String, String> map = new LinkedHashMap<String, String>();
 		map.put("message", exception.getMessage());
 		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(map);
 	}
+	
 	
 	@ExceptionHandler(InvalidSessionException.class)
 	public ResponseEntity<Map<String, String>> handle(InvalidSessionException exception) {
