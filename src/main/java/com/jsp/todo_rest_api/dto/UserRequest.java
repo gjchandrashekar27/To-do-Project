@@ -7,7 +7,7 @@ import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
 
-
+//For User Registration,Login and Logout User must aware of these Validations.
 @Getter
 @Setter
 public class UserRequest {

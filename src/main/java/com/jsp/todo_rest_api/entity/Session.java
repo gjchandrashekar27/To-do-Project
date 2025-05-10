@@ -3,9 +3,7 @@ package com.jsp.todo_rest_api.entity;
 import java.time.LocalDateTime;
 
 import org.hibernate.annotations.CreationTimestamp;
-
 import com.jsp.todo_rest_api.helper.SessionStatus;
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;

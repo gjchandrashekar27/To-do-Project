@@ -10,10 +10,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 import com.jsp.todo_rest_api.dto.UserRequest;
 import com.jsp.todo_rest_api.service.UserService;
-
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 
