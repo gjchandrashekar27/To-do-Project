@@ -92,4 +92,41 @@ public class TaskServiceImpl implements TaskService{
 		}
 		throw new InvalidSessionException();
 	}
+
+	@Override
+	public Map<String, Object> deleteTaskById(String sessionId, Long id) {
+		if (checkSession(sessionId)) {
+			Session userSession = sessionRepository.findBySessionId(sessionId);
+			Task task = taskRepository.findById(id).orElseThrow(() -> new ResourceNotFound("No Task from Id :" + id));
+
+			if (task.getUserId() == userSession.getUserId()) {
+				taskRepository.deleteById(id);
+				Map<String, Object> map = new LinkedHashMap<String, Object>();
+				map.put("message", "Task Deleted Success");
+				return map;
+			}
+			throw new NotAllowedException("You can Delete Task only that You have added");
+		}
+		throw new InvalidSessionException();
+	
+	}
+
+	@Override
+	public Map<String, Object> updateTask(Task task, String sessionId) {
+		if (checkSession(sessionId)) {
+			Session userSession = sessionRepository.findBySessionId(sessionId);
+			Task task1 = taskRepository.findById(task.getId())
+					.orElseThrow(() -> new ResourceNotFound("No Task from Id :" + task.getId()));
+			if (task.getUserId() == userSession.getUserId()) {
+				taskRepository.save(task);
+				Map<String, Object> map = new LinkedHashMap<String, Object>();
+				map.put("message", "Task Update Success");
+				map.put("data", task);
+				return map;	
+		}
+			throw new NotAllowedException("You can Delete Task only that You have added");	
+	}
+		throw new InvalidSessionException();
+	}
 }
+
