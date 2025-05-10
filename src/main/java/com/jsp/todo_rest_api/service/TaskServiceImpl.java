@@ -11,6 +11,7 @@ import com.jsp.todo_rest_api.dto.TaskRequest;
 import com.jsp.todo_rest_api.entity.Session;
 import com.jsp.todo_rest_api.entity.Task;
 import com.jsp.todo_rest_api.exception.InvalidSessionException;
+import com.jsp.todo_rest_api.exception.NotAllowedException;
 import com.jsp.todo_rest_api.exception.ResourceNotFound;
 import com.jsp.todo_rest_api.helper.SessionStatus;
 import com.jsp.todo_rest_api.repository.SessionRepository;
@@ -55,19 +56,40 @@ public class TaskServiceImpl implements TaskService{
 
 	@Override
 	public Map<String, Object> fetchAllTasks(String sessionId) {
-		if(checkSession(sessionId)) {
-			Session userSession = sessionRepository.findBySessionId(sessionId);
-			System.err.println(userSession.getUserId());
-			List<Task>tasks = taskRepository.findByUserId(userSession.getUserId());
-			if(!tasks.isEmpty()) {
-				Map<String, Object> map = new LinkedHashMap<String,Object>();
-				map.put("message", "Task Found Success");
-				map.put("data", tasks);
-			}
-			throw new ResourceNotFound("No Records Present");
-		}
-		
-		throw new InvalidSessionException();
+	    if (checkSession(sessionId)) {
+	        Session userSession = sessionRepository.findBySessionId(sessionId);
+	        System.err.println(userSession.getUserId());
+
+	        List<Task> tasks = taskRepository.findByUserId(userSession.getUserId());
+
+	        if (!tasks.isEmpty()) {
+	            Map<String, Object> map = new LinkedHashMap<>();
+	            map.put("message", "Task Found Success");
+	            map.put("data", tasks);
+	            return map; // ✅ YOU MISSED THIS RETURN
+	        }
+
+	        throw new ResourceNotFound("No Records Present");
+	    }
+
+	    throw new InvalidSessionException();
 	}
 
+
+	@Override
+	public Map<String, Object> fetchTaskById(String sessionId, Long id) {
+		if (checkSession(sessionId)) {
+			Session userSession = sessionRepository.findBySessionId(sessionId);
+			Task task = taskRepository.findById(id).orElseThrow(() -> new ResourceNotFound("No Task from Id :" + id));
+			System.err.println(task.getUserId()+"   "+userSession.getUserId());
+			if(task.getUserId()==userSession.getUserId()) {
+				Map<String, Object> map = new LinkedHashMap<String, Object>();
+				map.put("message", "Task Found Success");
+				map.put("data", task);
+				return map;
+			}
+			throw new NotAllowedException("You can See Task only that You have added");
+		}
+		throw new InvalidSessionException();
+	}
 }

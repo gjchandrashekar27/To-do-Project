@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import com.jsp.todo_rest_api.exception.InvalidException;
 import com.jsp.todo_rest_api.exception.InvalidSessionException;
+import com.jsp.todo_rest_api.exception.NotAllowedException;
 import com.jsp.todo_rest_api.exception.ResourceNotFound;
 import com.jsp.todo_rest_api.exception.UserExistsException;
 
@@ -50,6 +51,13 @@ public class GlobalExceptionHandler {
 		Map<String, String> map = new LinkedHashMap<String, String>();
 		map.put("message", exception.getMessage());
 		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(map);
+	}
+	
+	@ExceptionHandler(NotAllowedException.class)
+	public ResponseEntity<Map<String, String>> handle(NotAllowedException exception) {
+		Map<String, String> map = new LinkedHashMap<String, String>();
+		map.put("message", exception.getMessage());
+		return ResponseEntity.status(HttpStatus.FORBIDDEN).body(map);
 	}
 
 }

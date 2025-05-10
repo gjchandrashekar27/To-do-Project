@@ -12,4 +12,6 @@ public interface TaskService {
 
 	Map<String, Object> fetchAllTasks(String sessionId);
 
+	Map<String, Object> fetchTaskById(String sessionId, Long id);
+
 }
